@@ -1,6 +1,6 @@
 require 'rubygems'
-require_relative 'listings_manager'
-require_relative 'display'
+require_relative 'ringman/listings_manager'
+require_relative 'ringman/display'
 
 # list = ListingsManager.new
 # list.add_listing('http://www.ebay.com/itm/20Pcs-48W-Flood-LED-Off-road-Work-Light-Lamp-12V-24V-Cars-boat-Truck-Driving-UTE-/162342343377?hash=item25cc5b92d1:g:xOkAAOSwA3dYO5sy&vxp=mtr', [600], {})
