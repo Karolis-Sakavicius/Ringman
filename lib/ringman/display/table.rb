@@ -13,15 +13,15 @@ class Table
     @pad = nil
     @window = nil
     @width = @columns.inject(0) { |sum, x| sum + x[:width] } + @columns.length + 2
+    @screen = nil
 
     initialize_colors
   end
 
-  attr_accessor :pad, :window, :scroll
-  attr_reader :data, :columns, :height, :width
-
   def add_row(row)
     @data.push(row)
+
+    notify
   end
 
   def delete_row(row)
@@ -29,10 +29,18 @@ class Table
     return if deleted_row.nil?
 
     @data.delete(deleted_row)
+
+    notify
   end
 
   def update_row(id, data)
     @data[id].merge!(data)
+
+    notify
+  end
+
+  def register(screen)
+    @screen = screen
   end
 
 
@@ -137,6 +145,10 @@ class Table
     else
       str + ' ' * (width - str.length + 1)
     end
+  end
+
+  private def notify
+    @screen.redraw(self) if @screen
   end
 
   private def initialize_colors

@@ -11,11 +11,20 @@ class Display
     curs_set(0)
     refresh
 
-    @table = nil
+    @windows = []
   end
 
-  def draw(object, x, y)
+  def attach(object, x, y)
+    @windows.push(x: x, y: y, object: object)
+    object.register(self)
     object.draw(x, y)
+  end
+
+  def redraw(object)
+    window = @windows.detect { |w| w[:object] == object }
+    return if window.nil?
+
+    object.draw(window[:x], window[:y])
   end
 
   def temp
@@ -27,6 +36,7 @@ class Display
       #   draw_table(@table)
       # end
       getch
+      @windows[0][:object].add_row({ a: 'dra', b: 'dar', c: 'dar'})
     end
   end
 
