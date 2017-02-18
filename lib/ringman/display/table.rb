@@ -47,7 +47,7 @@ class Table
   def draw(x, y)
     pad_height = @data.empty? ? 1 : @data.length
     @pad = Curses::Pad.new(pad_height, @width) if @pad.nil?
-    @window = Curses::Window.new(1, @width, y, x) if @window.nil?
+    @window = Curses::Pad.new(1, @width) if @window.nil?
 
     draw_headers(x, y)
     draw_contents(x, y)
@@ -93,7 +93,7 @@ class Table
       @window << ' '
     end
 
-    @window.refresh
+    @window.refresh(0, 0, y, x, @height + 1, @width)
   end
 
   private def draw_scrollbar(x, y)

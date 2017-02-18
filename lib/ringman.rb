@@ -10,7 +10,10 @@ table.add_row({ a: 'kumpei', b: 'kumpas', c: 'kmpainisas'})
 table.add_row({ a: 'kumpei', b: 'kumpas', c: 'kmpainisas'})
 table.add_row({ a: 'kumpei', b: 'kumpas', c: 'kmpainisas'})
 
-disp.attach(table, 3, 3)
+simple = SimpleWindow.new(7, 7, 'titlas', 'text')
 
-table.add_row({ a: 'naujas', b: 'redraw', c: 'kmpainisas'})
+disp.attach(table, 3, 3)
+disp.attach(simple, 0, 0)
+
+# table.add_row({ a: 'naujas', b: 'redraw', c: 'kmpainisas'})
 disp.temp
