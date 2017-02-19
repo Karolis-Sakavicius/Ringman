@@ -20,11 +20,39 @@ class Display
     object.draw(x, y)
   end
 
-  def redraw(object)
-    window = @windows.detect { |w| w[:object] == object }
-    return if window.nil?
+  def redraw
+    fill_window(stdscr, COLOR_BLACK)
+    refresh
 
-    object.draw(window[:x], window[:y])
+    @windows.each do |win|
+      win[:object].draw(win[:x], win[:y])
+    end
+  end
+
+  def close(object)
+    window = @windows.detect { |w| w[:object] == object }
+
+    @windows.delete(window)
+
+    redraw
+  end
+
+  def focus(object)
+    window = @windows.detect { |w| w[:object] == object }
+
+    @windows.delete(window)
+    @windows.push(window)
+
+    redraw
+  end
+
+  def move(object, x, y)
+    window = @windows.detect { |w| w[:object] == object }
+
+    window[:x] = x
+    window[:y] = y
+
+    redraw
   end
 
   def temp
@@ -36,7 +64,7 @@ class Display
       #   draw_table(@table)
       # end
       getch
-      @windows[0][:object].add_row({ a: 'dra', b: 'dar', c: 'dar'})
+      @windows[1][:object].add_row({ a: 'dra', b: 'dar', c: 'dar'})
     end
   end
 

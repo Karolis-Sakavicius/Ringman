@@ -55,15 +55,15 @@ class Table
   end
 
   def close
-    @window.clear
-    @window.refresh
     @window.close
     @window = nil
 
-    @pad.clear
-    @pad.refresh(0, 0, 0, 0, 0, 0)
     @pad.close
     @pad = nil
+
+    @screen = nil
+
+    notify
   end
 
   private def needs_scrollbar?
@@ -148,7 +148,7 @@ class Table
   end
 
   private def notify
-    @screen.redraw(self) if @screen
+    @screen.redraw if @screen
   end
 
   private def initialize_colors

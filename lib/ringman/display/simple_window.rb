@@ -5,7 +5,6 @@ class SimpleWindow
     @text = text
     @title = title
     @height = height
-    @scroll = 0
     @pad = nil
     @width = width
     @screen = nil
@@ -16,6 +15,14 @@ class SimpleWindow
 
   def register(screen)
     @screen = screen
+  end
+
+  def close
+    @pad.close
+    @pad = nil
+    @screen = nil
+
+    notify
   end
 
   def draw(x, y)
@@ -29,5 +36,9 @@ class SimpleWindow
     end
 
     @pad.refresh(0, 0, y, x, y + @height, x + @width)
+  end
+
+  private def notify
+    @screen.redraw if @screen
   end
 end
